@@ -86,8 +86,8 @@ const filter = svg.append("defs")
 //rSCale: scale depends on the number
 const min_cluster_size = d3.min(Array.from(clusterData.map(d=>d.cluster_size)))
 const max_cluster_size = d3.max(Array.from(clusterData.map(d=>d.cluster_size)))
-const node_radius = Math.max(Math.min(height, width)/(data.length/2), 2) 
-const max_node_radius = Math.max(Math.min(height, width)/(data.length/3), 5) 
+const node_radius = Math.max(Math.min(height, width)/(data.length/2), 3) 
+const max_node_radius = Math.max(Math.min(height, width)/(data.length/3), 10) 
 const min_radius =  Math.sqrt( Math.sqrt(max_cluster_size))*(node_radius+3)
 const max_radius = Math.sqrt(max_cluster_size)*(node_radius+2)
 
@@ -126,73 +126,74 @@ function getInnerClusterNodes(){
   }
   })
 
-  const innerNode = svg.selectAll("rect")
-        .data(innerNodes)
-        .enter()
-        .append("rect")
-        .attr("saved-status", '+')
-        .attr("width", d =>2* d.radius)
-        .attr("height", d => 2*d.radius)
-        .attr("x", d => d.x)
-        .attr('stroke-width',.5)
-        .attr("y", d => d.y)
-        .attr("fill", d => d.vibrant_color)
-        .attr("class", "innerNode")
-        .on('mouseover', function(event,d){
-          const saved_status =  d3.select(this).attr("saved-status")
-          plus.text(saved_status)
-          d3.select(this).attr('stroke', 'black')
+  const innerNode = svg.selectAll(".innerNode")
+  .data(innerNodes)
+  .join(
+    // Enter phase: Elements that need to be added
+    enter => enter.append("rect")
+      .attr("saved-status", '+')
+      .attr("width", d => 2 * d.radius)
+      .attr("height", d => 2 * d.radius)
+      .attr("x", d => d.x)
+      .attr('stroke-width', .5)
+      .attr("y", d => d.y)
+      .attr("fill", d => d.vibrant_color)
+      .attr("class", "innerNode")
+      .on('mouseover', function(event, d) {
+        const saved_status = d3.select(this).attr("saved-status");
+        plus.text(saved_status);
+        d3.select(this).attr('stroke', 'black');
 
-          if(saved_status == "+"){
-            plus.style('display', 'inherit')
+        if (saved_status == "+") {
+          plus.style('display', 'inherit')
             .style("text-anchor", "middle")
-            .attr('x', d.x +d.radius)
-            .attr('y', d.y+d.radius + 3)
-            .attr('fill', 'black')
+            .attr('x', d.x + d.radius)
+            .attr('y', d.y + d.radius + 3)
+            .attr('fill', 'black');
+        } else {
+          d3.select(this)
+            .attr('stroke', d.vibrant_color)
+            .style('opacity', 1)
+            .attr('fill', 'none');
+        }
+      })
+      .on('mousedown', function(event, d) {
+        const saved_status = d3.select(this).attr("saved-status");
+        plus.text(saved_status);
+        if (saved_status == "+") {
+          d3.select(this).attr('stroke', d.vibrant_color).attr("fill", 'black');
+          plus.style('display', 'inherit')
+            .style("text-anchor", "middle")
+            .style("pointer-events", "none")
+            .attr('x', d.x + d.radius)
+            .attr('y', d.y + d.radius + 3)
+            .attr('fill', 'white');
+        }
+      })
+      .on('click', function(event, d) {
+        const saved_status = d3.select(this).attr("saved-status");
+        if (saved_status == "+") {
+          saveSwatch(d.id);
+          d3.select(this).attr("saved-status", "-");
+          plus.text('-');
+          d3.select(this).attr('stroke', d.vibrant_color).attr("fill", 'none');
+        }
+      })
+      .on('mouseleave', function(event, d) {
+        const saved_status = d3.select(this).attr("saved-status");
+        if (saved_status == "+") {
+          d3.select(this).attr('stroke', d.vibrant_color).attr("fill", d.vibrant_color);
+        }
+        plus.style('display', 'none');
+      }),
 
-          }else{
-            d3.select(this)
-              .attr('stroke', d.vibrant_color)
-              .style('opacity',1)
-              .attr('fill', 'none')
-          }
-         
-         
-        })
-        .on('mousedown', function(event,d){
-          const saved_status =  d3.select(this).attr("saved-status")
-          plus.text(saved_status)
-          if(saved_status == "+"){
-            d3.select(this).attr('stroke', d.vibrant_color).attr("fill", 'black')
-            plus.style('display', 'inherit')
-              .style("text-anchor", "middle")
-              .style("pointer-events", "none")
-              .attr('x', d.x +d.radius)
-              .attr('y', d.y+d.radius + 3)
-              .attr('fill', 'white')
-           
-          }
-          
-        })
-        .on('click',function(event,d){
-          const saved_status =  d3.select(this).attr("saved-status")
-          if(saved_status == "+"){
-            saveSwatch(d.id)
-            d3.select(this).attr("saved-status", "-")
-            plus.text('-')
-            d3.select(this).attr('stroke',d.vibrant_color).attr("fill", 'none')
-          }
-          
-
-        })
-        .on('mouseleave', function(event,d){
-          const saved_status =  d3.select(this).attr("saved-status")
-          if(saved_status == "+"){
-            d3.select(this).attr('stroke',d.vibrant_color).attr("fill", d.vibrant_color)
-          }
-          plus.style('display', 'none')
-        
-        })
+    // Update phase: Elements that need to be updated
+    update => update
+      .attr("width", d => 2 * d.radius)  // Update width
+      .attr("height", d => 2 * d.radius)  // Update height
+      .attr("x", d => d.x)  // Update x
+      .attr("y", d => d.y)  // Update y
+  );
     
 
     const plus = svg.append('text')
@@ -206,18 +207,18 @@ function getInnerClusterNodes(){
 
 }
 function getInnerClusterSim(innerNodes, innerNode){
-  const cluster_nums = Array.from(new Set(clusterData.map(d=>d.cluster_num)))
   const innerSimulation = d3.forceSimulation(innerNodes)
-    .force("collision", d3.forceCollide().radius(d => d.radius*3/2))
-    .force("cluster", forceCluster(.05))
+    .force("collision", d3.forceCollide(.01).radius(d => d.radius*1.5))
+    .force("x", d3.forceX((d) => d.x).strength(0.01))
+    .force("y", d3.forceY((d) => d.y).strength(0.01))
+    .force("cluster", forceCluster(.001))
     .alphaDecay(0.005) 
-    .alphaTarget(0.01)
     .on("tick", () => ticked())
 
-  
 
   function ticked() {
     innerNode
+        .attr("radius", d => d.radius)
         .attr("x", d => Math.max(d.radius, Math.min(innerWidth - d.radius, d.x))) 
         .attr("y", d => Math.max(d.radius, Math.min(innerHeight - d.radius, d.y))); 
   }
@@ -265,13 +266,62 @@ function getInnerClusterSim(innerNodes, innerNode){
   }
   innerNode.call(drag(innerSimulation));
 
+
+
   return innerSimulation
 
 }
 
 function layoutClutersInner(){
   const [innerNodes, innerNode] = getInnerClusterNodes()
-  currentSimulation = getInnerClusterSim(innerNodes, innerNode)
+
+   let activeNodes = [];
+  svg.on("mousemove", (event) => {
+    let [mouseX, mouseY] = d3.pointer(event);
+    for(let d of innerNodes){
+      const dx = d.x - mouseX;
+      const dy = d.y - mouseY;
+      const dist = Math.sqrt(dx ** 2 + dy ** 2);
+      if (dist <= 0) {
+        d.radius=max_node_radius
+      }
+      else if (dist >= 50) {
+        d.radius=node_radius
+        
+      }else{
+        const radius = max_node_radius - (dist / 50) * (max_node_radius - node_radius);
+        d.radius=radius
+      }
+     
+    }
+
+    svg.selectAll(".innerNode")
+      .data(innerNodes)
+      .attr("width", d => 2 * d.radius)
+      .attr("height", d => 2 * d.radius)
+
+
+    activeNodes = innerNodes.filter((d) => {
+      const dx = d.x - mouseX;
+      const dy = d.y - mouseY;
+      return Math.sqrt(dx ** 2 + dy ** 2) < 100; 
+    });
+
+
+    if (activeNodes.length > 0) {
+      currentSimulation=getInnerClusterSim(activeNodes, innerNode);
+
+    }
+  });
+
+  svg.on("mouseout", () => {
+    activeNodes = [];
+  });
+
+
+  
+
+
 
 }
 
@@ -568,6 +618,7 @@ function updateClusterLayout(){
   svg.selectAll("*").remove()
   svg.on("mousemove", null)
   html_plot_container.selectAll("*").remove()
+  html_plot_container.on("mousemove", null)
   if(cluster_mode == 'HSL'){
     layoutClutersInner()
   }else{
