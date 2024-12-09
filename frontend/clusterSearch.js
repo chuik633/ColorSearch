@@ -212,7 +212,7 @@ function getInnerClusterSim(innerNodes, innerNode){
     .force("x", d3.forceX((d) => d.x).strength(0.01))
     .force("y", d3.forceY((d) => d.y).strength(0.01))
     .force("cluster", forceCluster(.001))
-    .alphaDecay(0.005) 
+    .alphaDecay(0.05) 
     .on("tick", () => ticked())
 
 
@@ -462,7 +462,7 @@ function updateLocationSim(innerNodes, innerNode) {
     .force("x", d3.forceX((d) => d.x).strength(0.01))
     .force("y", d3.forceY((d) => d.y).strength(0.01))
     .force("collision", d3.forceCollide().radius(d => d.radius*1.5))
-    .alphaDecay(0.001)
+    .alphaDecay(0.01)
     .on("tick", () => ticked());
 
   function ticked() {
