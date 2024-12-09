@@ -1,7 +1,7 @@
 // ------------- DATA-------------
-const data = await d3.json('../data/df_colorImage.json')
-const clusterData = await d3.json('../data/cluster_info.json')
-const location_data = await d3.json('../data/df_location.json')
+const data = await d3.json('./data/df_colorImage.json')
+const clusterData = await d3.json('./data/cluster_info.json')
+const location_data = await d3.json('./data/df_location.json')
 
 const dataObject = data.reduce((acc, item) => {
   acc[item.id] = item; 
@@ -197,7 +197,7 @@ function getInnerClusterNodes(){
     
 
     const plus = svg.append('text')
-        .text("+").attr("class", 'plus-text')
+        .text("+").attr("class", 'plus-text svg-no-select')
         .style("text-anchor", "top")
         .style('display', 'none')
         .attr('font-size', 12)
@@ -275,6 +275,26 @@ function getInnerClusterSim(innerNodes, innerNode){
 
 
 function layoutClutersInner(){
+  const square_size = node_radius*2 + 2
+  const num_rows = innerHeight/square_size
+  const num_cols = innerWidth/square_size
+  const strokew = .05
+  for(let i =0;i<num_rows; i++){
+      svg.append('rect').attr('class', 'gridline')
+        .attr('x', 0)
+        .attr('y', i*square_size)
+        .attr('width', innerWidth)
+        .attr('height', strokew)
+        .attr('fill', "#827A7A")
+  }
+  for(let i =0;i<num_cols; i++){
+    svg.append('rect').attr('class', 'gridline')
+      .attr('x', i*square_size)
+      .attr('y', 0)
+      .attr('width', strokew)
+      .attr('height',innerHeight)
+      .attr('fill', "#827A7A")
+  }
 
   const mouseZoomFn = addZoomFunctionality(svg)
   const [innerNodes, innerNode] = getInnerClusterNodes()
@@ -285,6 +305,7 @@ function layoutClutersInner(){
       mouseZoomFn(event)
 
     }else{
+      tooltip.style("display", 'none')
 
     
     let [mouseX, mouseY] = d3.pointer(event);
@@ -462,7 +483,7 @@ function getLocationNodes(innerNodes) {
     );
 
       const plus = svg.append('text')
-        .text("+").attr("class", 'plus-text')
+        .text("+").attr("class", 'plus-text svg-no-select')
         .style("text-anchor", "top")
         .style('display', 'none')
         .attr('font-size', 12)
@@ -610,6 +631,7 @@ function set_cluster_mode(mode) {
     console.log("nochange");
     return;
   }
+  syncZoom_clusterMode(mode)
   console.log("selecting mode", mode);
   cluster_mode = mode;
 

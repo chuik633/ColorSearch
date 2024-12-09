@@ -16,6 +16,7 @@ const innerWidth = width - padding.left - padding.right;
 const container = d3.select("#test-container")
                     .style("width", `${width}px`)
                     .style("height", `${height}px`);
+const tooltip = d3.select(".tooltip").style('display', 'none')
 const svg = container
     .append("svg")
     .attr("viewBox", [0, 0, innerWidth, innerHeight])
