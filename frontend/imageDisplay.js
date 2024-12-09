@@ -1,7 +1,7 @@
 
 
-const data = await d3.json('../data/df_colorImage.json')
-console.log("loaded data:", data)
+// const data = await d3.json('../data/df_colorImage.json')
+// console.log("loaded data:", data)
 
 function displayImageSwatch(container, entry, image_width, x,y){
     const image_link = entry.image_link
@@ -140,19 +140,26 @@ function showSwatchCollection(popup_container, collection_data){
 }
 
 
-// //TESTING
-const container = d3.select("#test-container").style('background-color', 'inherit')
-const popup_container = container.append('div').attr('class', 'popup-container')
+// // //TESTING
+// const width = window.innerWidth
+// const height = window.innerHeight
 
-const collection_data = [data[0], data[1], data[2],  data[3], data[4], data[5]].map(d=>{
-    console.log(d.swatches)
-    const newd = d
-    newd.swatches[0]['selected'] = 1
-    return newd
-})
 
-displayImageSwatch(container, data[4], 200,50,300)
-displayImageSwatch(container, data[3], 200,50,100)
-displayImageSwatch(container, data[1], 200,300,100)
-displayImageSwatch(container, data[2], 200,550,100)
-// showSwatchCollection(popup_container, collection_data)
+// const container = d3.select("#test-container")
+//                     .style("width", `${width}px`)
+//                     .style("height", `${height}px`);
+
+// const popup_container = container.append('div').attr('class', 'popup-container')
+
+// const collection_data = [data[0], data[1], data[2],  data[3], data[4], data[5]].map(d=>{
+//     console.log(d.swatches)
+//     const newd = d
+//     newd.swatches[0]['selected'] = 1
+//     return newd
+// })
+
+// displayImageSwatch(container, data[4], 200,50,300)
+// displayImageSwatch(container, data[3], 200,50,100)
+// displayImageSwatch(container, data[1], 200,300,100)
+// displayImageSwatch(container, data[2], 200,550,100)
+// // showSwatchCollection(popup_container, collection_data)

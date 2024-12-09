@@ -5,14 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript"></script>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="params_styles.css">
   <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <title>Frontend Function Testing</title>
 </head>
 <body>
   <div class="blur-work"> </div>
+   <!-- form -->
+   <div id="params-container">
+        <h2>Cluster by</h2>
+        <form id="cluster-options">
+          <label class="radio-custom">
+            <input type="radio" name="cluster-options" value="HSL" checked />
+            <span class="radio-button"></span>
+            <div class="radio-value">HSL</div>
+          </label>
+          <label class="radio-custom">
+            <input type="radio" name="cluster-options" value="location" />
+            <span class="radio-button"></span>
+            <div class="radio-value">location</div>
+          </label>
+        </form>
+   </div>
+
+
+  <!-- contents -->
   <div id = 'side-panel'>
     <div class = 'col'> 
-        <div class="title">color clusters</div>
+      <div class="title">color clusters</div>
       <div class="subtitle">search Fashion by color</div>
     </div>
     
@@ -22,8 +44,9 @@
   </div>
   <div id = "test-container"></div>
 
+  <script src="imageDisplay.js"> </script>
   <script src="clusterSearch.js" type = 'module' async> </script>
-  <!-- <script src="imageDisplay.js" type = 'module' async> </script> -->
+
   
 </body>
 </html>

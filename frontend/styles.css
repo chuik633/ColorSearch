@@ -7,8 +7,10 @@ body{
 }
 
 #side-panel{
-    width: 25vw;
+    /* width: 30vw; */
     position: fixed;
+    left:0px;
+    top:0px;
     z-index: 2;
     height: 100vh;
     background-color: #EBE8E4;
@@ -23,7 +25,7 @@ body{
 #side-panel .title{
     color: #000;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 10px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -33,7 +35,7 @@ body{
 #side-panel .subtitle{
     color: #000;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 5px;
+    font-size: 8px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -43,16 +45,52 @@ body{
 
 
 #selected-colors-container{
-    width: 80%;
-    height: 20vh;
-    border: 1px solid black;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 2px;
+    width: 100%;
+    height: fit-content;
+    overflow-y: auto;
 
 }
 
+.saved-color{
+    border: .1px solid black;
+   
+}
+
+
 #selected-swatches-container{
+    /* border: .1px solid black; */
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
     width: 80%;
     height: 20vh;
-    border: 1px solid black;
+    overflow-y: auto;
+    position: relative;
+}
+
+#selected-swatches-container h3{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    font-weight: 100;
+    position: relative; 
+    top: -20px;
+  
+    
+}
+
+#selected-colors-container h3{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    font-weight: 100;
+    position: relative; 
+    width: 100%;
+
 }
 
 .popup-container{
@@ -101,13 +139,14 @@ body{
 svg{
     /* background-color: blue; */
     position: absolute;
-    left: 25vw;
+    right: 0px;
+    z-index: 5;
 }
 
 .html-plot-container{
     position: absolute;
     top:0px;
-    left: 25vw;
+    right: 0px;
     /* background-color: black; */
 }
 .outerNode {
@@ -146,3 +185,17 @@ svg{
     -webkit-backdrop-filter: blur(23.3px);  
 
 } */
+
+
+#map{
+    width: 100%;
+    height: 100%;
+    background-color: 'green'!important;
+}
+
+.html-plot-container{
+    position: absolute;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+}
