@@ -5,13 +5,17 @@
 body{
     background-color: #EBE8E4;
 }
-
+.svg-no-select {
+    user-select: none;  /* For modern browsers */
+    -webkit-user-select: none; /* For Safari */
+    -moz-user-select: none; /* For Firefox */
+  }
 #side-panel{
     /* width: 30vw; */
     position: fixed;
     left:0px;
     top:0px;
-    z-index: 2;
+    z-index: 6;
     height: 100vh;
     background-color: #EBE8E4;
     box-shadow: 0px 4px 30.2px 0px rgba(216, 209, 199, 0.49);
@@ -198,4 +202,14 @@ svg{
     z-index: 0;
     width: 100%;
     height: 100%;
+}
+.selection-box{
+    stroke-dasharray: 5,5;
+}
+
+.tooltip{
+    font-family: 'Courier New', Courier, monospace;
+    font-size:10px;
+    background-color: black;
+    color: white;
 }

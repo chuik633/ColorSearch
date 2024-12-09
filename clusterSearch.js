@@ -32,7 +32,7 @@ for (const cluster_option of cluster_options) {
 let currentSimulation = null;
 const width = window.innerWidth
 const height = window.innerHeight
-const side_bar_width = 300
+const side_bar_width = Math.max(300, width*.3)
 
 const padding = {
     top: 10,
@@ -87,7 +87,7 @@ const filter = svg.append("defs")
 const min_cluster_size = d3.min(Array.from(clusterData.map(d=>d.cluster_size)))
 const max_cluster_size = d3.max(Array.from(clusterData.map(d=>d.cluster_size)))
 const node_radius = Math.max(Math.min(height, width)/(data.length/2), 3) 
-const max_node_radius = Math.max(Math.min(height, width)/(data.length/3), 10) 
+const max_node_radius = Math.max(Math.min(height, width)/(data.length/3), node_radius*2) 
 const min_radius =  Math.sqrt( Math.sqrt(max_cluster_size))*(node_radius+3)
 const max_radius = Math.sqrt(max_cluster_size)*(node_radius+2)
 
@@ -272,11 +272,21 @@ function getInnerClusterSim(innerNodes, innerNode){
 
 }
 
+
+
 function layoutClutersInner(){
+
+  const mouseZoomFn = addZoomFunctionality(svg)
   const [innerNodes, innerNode] = getInnerClusterNodes()
 
    let activeNodes = [];
   svg.on("mousemove", (event) => {
+    if(isDragging){
+      mouseZoomFn(event)
+
+    }else{
+
+    
     let [mouseX, mouseY] = d3.pointer(event);
     for(let d of innerNodes){
       const dx = d.x - mouseX;
@@ -312,12 +322,15 @@ function layoutClutersInner(){
       currentSimulation=getInnerClusterSim(activeNodes, innerNode);
 
     }
-  });
+  }});
 
   svg.on("mouseout", () => {
     activeNodes = [];
   });
 
+
+  
+  // addMiniMap(svg)
 
   
 
