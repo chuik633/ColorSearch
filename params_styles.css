@@ -69,3 +69,58 @@
     background-color: black;
   }
   
+.button{
+  font-family:'Courier New', Courier, monospace;
+  font-size:8px;
+  position: relative;
+  top: -20px;
+  left: 10px;
+  text-decoration: underline;
+  background-color: #000;
+  color: white;
+  padding: 2px 4px;
+
+}
+
+.button:hover{
+  font-style: italic;
+  border: .31px solid black;
+}
+.button:active{
+  background-color: #000;
+  color: white;
+}
+ 
+ .popup-container{
+  /* background-color: blue; */
+  position: fixed;
+  width: 100vw;
+  right:0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  z-index: 20;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);  
+
+  pointer-events: auto;
+ }
+
+
+ #close_popup{
+  position: absolute;
+ }
+
+.collection-popup{
+  width: 80%;
+  min-height: 50vh;
+  height: fit-content;
+  position: relative;
+  padding: 30px;
+  top: -50px;
+
+  background-color: #EBE8E4;
+  border: .5px solid black;
+  pointer-events: auto;
+}

@@ -44,12 +44,12 @@ const innerHeight = height - padding.top - padding.bottom;
 const innerWidth = width - padding.left - padding.right;
   
 
-
+// ------------- Containers / svgs------------
 const container = d3.select("#test-container")
                     .style("width", `${width}px`)
                     .style("height", `${height}px`);
 
-const popup_container = container.append('div').attr('class', 'popup-container')
+const popup_container = container.append('div').attr('class', 'popup-container').style("display", 'none')
 const side_bar_container = d3.select("#side-panel").style("width", `${side_bar_width}px`)
 
 const color_container = d3.select("#selected-colors-container").style("width", `${side_bar_width-20}px`)
@@ -58,6 +58,7 @@ const swatch_container = d3.select("#selected-swatches-container")
                             .style("width", `${side_bar_width-20}px`)
                             .style("height", `${height/2}px`)
 swatch_container.append('h3').text("your swatches")
+
 
 const svg = container
     .append("svg")
@@ -667,12 +668,13 @@ function updateClusterLayout(){
 
 
 ////-----------------------------SAVING THE SWATCHES-----------------------------
-
+let saved_swatches = []
 //TODO: implement
 let swatch_x_curr = 20;
 let swatch_y_curr = 20;
 function saveSwatch(id){
   console.log("saving swatch ", id)
+  saved_swatches.push(dataObject[id])
   const data_entry = dataObject[id]
   color_container.append('div')
     .attr('class', 'saved-color')
@@ -690,6 +692,11 @@ function saveSwatch(id){
   }
     
 }
+
+const popupSwatchesBtn  = swatch_container.append('div').attr('class', 'button').text('expand')
+popupSwatchesBtn.on('click', (event)=>{
+  showSwatchCollection(popup_container, saved_swatches)
+})
 
 
 //Chat gpt helper functions to convert between hex and rgb

@@ -114,13 +114,20 @@ function displaySwatch(container, swatch, swatch_width, swatch_height, image_lin
 
 function showSwatchCollection(popup_container, collection_data){
     popup_container.selectAll("*").remove() //clear the pop up
+    popup_container.style('display', 'flex')
+    popup_container.on('click', ()=>{
+        popup_container.selectAll("*").remove()
+        popup_container.style('display', 'none')
 
+    })
     const collection_popup = popup_container.append('div').attr('class', 'collection-popup')
     const close_popup = collection_popup.append('div')
                         .text('x').attr('id', 'close_popup')
                         .on('mouseover', ()=> d3.select("#close_popup").style('font-weight','500'))
                         .on('mouseleave', ()=> d3.select("#close_popup").style('font-weight','200'))
-                        .on('click', ()=> popup_container.selectAll("*").remove())
+                        .on('click', ()=> {
+                            popup_container.selectAll("*").remove()
+                            popup_container.style('display', 'none')})
     
     
     const swatches_container = collection_popup.append('div').attr('class', 'swatches-container')
@@ -129,7 +136,7 @@ function showSwatchCollection(popup_container, collection_data){
     
     for(const selected_entry of collection_data){
         for(const swatch of selected_entry.swatches){
-            if (swatch['selected'] == 1){// display this swatch
+            if (swatch['selected'] == 1 || swatch['selected'] == 0){// display this swatch
                 const swatch_height = Math.min(max_swatch_height, swatch.height* swatch_width/swatch.width)
                 displaySwatch(swatches_container, swatch, swatch_width, swatch_height, selected_entry.image_link)
                 

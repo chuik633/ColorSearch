@@ -21,6 +21,7 @@ function addZoomFunctionality(svg) {
     svg.on("dblclick", function(event) {
         svg.transition().duration(300).attr("transform", "translate(0, 0) scale(1)");
         isZoomed = false
+        tooltip.style("display", 'none')
     });
     let selectionBox = null;
     let startX, startY;
@@ -38,7 +39,7 @@ function addZoomFunctionality(svg) {
               .attr("class", "selection-box")
               .attr('fill', 'none')
               .attr('stroke', 'black')
-              .attr('stroke-width', 0.1)
+              .attr('stroke-width', 0.8)
               .attr("x", startX)
               .attr("y", startY)
               .attr("width", 0)
@@ -113,9 +114,13 @@ function addZoomFunctionality(svg) {
   
           zoomToSelection(startX, startY, select_width, select_height);
           isZoomed = true;
-  
-          tooltip.style("display", 'none')
           selectionBox.remove();
+          tooltip.style("display", 'flex').text("Double click to zoom out")
+            .style('left', `${leftPosition+x + select_width / 2}px`)
+            .style('transform', 'translate(-50%,0)')
+            .style('top', `${y - 20}px`)
+         
+          
         }
       }
     });
