@@ -69,6 +69,7 @@
     background-color: black;
   }
   
+
 .button{
   font-family:'Courier New', Courier, monospace;
   font-size:8px;
@@ -81,6 +82,21 @@
   padding: 2px 4px;
 
 }
+#selected-colors-container{
+  position: relative;
+}
+#selected-colors-container .button{
+  top: 18px;
+  left: 100px;
+
+  position: absolute;
+}
+
+.saved-color{
+  position: relative;
+  /* left: -35px;
+  top: 10px; */
+}
 
 .button:hover{
   font-style: italic;
@@ -91,20 +107,20 @@
   color: white;
 }
  
- .popup-container{
-  /* background-color: blue; */
-  position: fixed;
-  width: 100vw;
-  right:0px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  z-index: 20;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);  
+.popup-container{
+    /* background-color: blue; */
+    position: fixed;
+    width: 100vw;
+    right:0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    z-index: 20;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);  
 
-  pointer-events: auto;
+    pointer-events: auto;
  }
 
 
@@ -123,4 +139,15 @@
   background-color: #EBE8E4;
   border: .5px solid black;
   pointer-events: auto;
+}
+
+.color-popup{
+  width: 80vw;
+  min-height: 80vh;
+  /* z-index: 80; */
+  background-color: #ebe8e4e8;
+  /* border: .5px solid black; */
+}
+.html-plot-container{
+  z-index: 5;
 }

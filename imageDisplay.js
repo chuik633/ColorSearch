@@ -146,6 +146,22 @@ function showSwatchCollection(popup_container, collection_data){
 
 }
 
+function showColorCollection(popup_container, colors){
+    popup_container.selectAll("*").remove() //clear the pop up
+    popup_container.style('display', 'flex')
+    popup_container.on('click', ()=>{
+        popup_container.selectAll("*").remove()
+        popup_container.style('display', 'none')
+
+    })
+    const color_popup = popup_container.append('div').attr('class', 'color-popup').attr('id', 'canvas-container')
+    // appendCanvasToDiv();
+    let colors2 = [{x:50,y:50, r:50, color:"red"}]
+    new p5((p) => sketch(p, color_popup.node(),colors));
+    
+
+}
+
 
 // // //TESTING
 // const width = window.innerWidth

@@ -174,7 +174,7 @@ function getInnerClusterNodes(){
       .on('click', function(event, d) {
         const saved_status = d3.select(this).attr("saved-status");
         if (saved_status == "+") {
-          saveSwatch(d.id);
+          saveSwatch(d.id, d.x, d.y);
           d3.select(this).attr("saved-status", "-");
           plus.text('-');
           d3.select(this).attr('stroke', d.vibrant_color).attr("fill", 'none');
@@ -669,13 +669,20 @@ function updateClusterLayout(){
 
 ////-----------------------------SAVING THE SWATCHES-----------------------------
 let saved_swatches = []
+let saved_colors = []
 //TODO: implement
 let swatch_x_curr = 20;
 let swatch_y_curr = 20;
-function saveSwatch(id){
-  console.log("saving swatch ", id)
-  saved_swatches.push(dataObject[id])
+function saveSwatch(id, xpos, ypos){
   const data_entry = dataObject[id]
+  saved_swatches.push(data_entry)
+  saved_colors.push({
+    color: data_entry.vibrant_color,
+    x: xpos,
+    y:ypos,
+    r:Math.random() * (50 - 30) + 30
+  })
+  
   color_container.append('div')
     .attr('class', 'saved-color')
     .style('width', `${node_radius*2}px`)
@@ -692,6 +699,23 @@ function saveSwatch(id){
   }
     
 }
+const popupColorsBtn  = color_container.append('div').attr('class', 'button').text('show gradients')
+let expand_Colors = false
+popupColorsBtn.on('click', ()=>{
+  if(expand_Colors ==false){
+    expand_Colors=true
+    popupColorsBtn.text("hide gradients")
+    svg.style('pointer-events', 'none')
+    showColorCollection(html_plot_container, saved_colors)
+  }else{
+    expand_Colors=false
+    popupColorsBtn.text("show gradients")
+    svg.style('pointer-events', 'auto')
+    html_plot_container.selectAll("*").remove()
+
+  }
+  
+})
 
 const popupSwatchesBtn  = swatch_container.append('div').attr('class', 'button').text('expand')
 popupSwatchesBtn.on('click', (event)=>{
