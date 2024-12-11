@@ -64,6 +64,10 @@ function displayImageSwatch(container, entry, image_width, x,y){
                         .style("background-image", `url(${image_link})`)
                     d3.select(".swatch-image-" + entry.id).style("opacity", .2)
                 })
+                .on('click', ()=>{
+                   const popup_container  = d3.select('.popup-container')
+                   showSwatch(popup_container, entry)
+                })
         }
 
         // for(const swatch of swatches){
@@ -159,6 +163,79 @@ function showColorCollection(popup_container, colors){
     let colors2 = [{x:50,y:50, r:50, color:"red"}]
     new p5((p) => sketch(p, color_popup.node(),colors));
     
+
+}
+
+function showSwatch(popup_container, entry){
+    console.log("SHOWING SWATCH", entry)
+    popup_container.selectAll("*").remove() //clear the pop up
+    popup_container.style('display', 'flex')
+    popup_container.on('click', ()=>{
+        popup_container.selectAll("*").remove()
+        popup_container.style('display', 'none')
+
+    })
+    const collection_popup = popup_container.append('div').attr('class', 'swatches-popup')
+
+    const image_container = collection_popup.append('div').attr('class', 'swatches-container')
+    const swatch_width = 100
+    const max_swatch_height = 100
+
+    for(const swatch of entry.swatches){
+        const swatch_height = Math.min(100, swatch.height* swatch_width/swatch.width)
+        displaySwatch(image_container, swatch, swatch_width, swatch_height, entry.image_link)
+        
+    }
+    const close_popup = collection_popup.append('div')
+                        .text('x').attr('id', 'close_popup')
+                        .on('mouseover', ()=> d3.select("#close_popup").style('font-weight','500'))
+                        .on('mouseleave', ()=> d3.select("#close_popup").style('font-weight','200'))
+                        .on('click', ()=> {
+                            popup_container.selectAll("*").remove()
+                            popup_container.style('display', 'none')})
+
+    const info_container = collection_popup.append("div").attr("class", "card-info");
+    const fields = {
+        "title":'title',
+         "museum":'data_source',
+         "date": 'date_str'
+        };
+    for (const [field_text, field] of Object.entries(fields)) {
+        const field_container = info_container
+            .append("div")
+            .attr("class", "field-container");
+
+        field_container.append("text").text(field_text).attr("class", "field-label");
+    
+        field_container
+            .append("text")
+            .text(entry[field])
+            .attr("class", "field-text");
+    }       
+    
+    const field_container = info_container
+        .append("div")
+        .attr("class", "field-container");
+
+    field_container.append("text").text("Description").attr("class", "field-label");
+    field_container
+        .append("text")
+        .text(entry['notes'][0]['content'])
+        .attr("class", "field-text");
+        
+    const colors_palette = collection_popup
+        .append("div")
+        .attr("class", "card-colors");
+    for (const color of entry.main_color) {
+        if (String(color).includes("#")) {
+        colors_palette
+            .append("div")
+            .attr("class", "card-color")
+            .style("background", color);
+        }
+    }
+
+                
 
 }
 

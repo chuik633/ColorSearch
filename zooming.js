@@ -116,9 +116,9 @@ function addZoomFunctionality(svg) {
           isZoomed = true;
           selectionBox.remove();
           tooltip.style("display", 'flex').text("Double click to zoom out")
-            .style('left', `${leftPosition+x + select_width / 2}px`)
+            .style('left', `${leftPosition+startX + select_width / 2}px`)
             .style('transform', 'translate(-50%,0)')
-            .style('top', `${y - 20}px`)
+            .style('top', `${startY - 20}px`)
          
           
         }
@@ -139,6 +139,9 @@ function addZoomFunctionality(svg) {
   
 
       tooltip.style("display", 'none')
+      if(scale ==null || scale == Infinity){
+        return mouseMoveZoom
+      }
       svg.transition().duration(300)
         .attr("transform", `scale(${scale})`);
     }

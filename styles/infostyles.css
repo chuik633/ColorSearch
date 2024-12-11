@@ -1,0 +1,81 @@
+@font-face {
+  font-family: Futura;
+  src: url("Futura.ttc");
+}
+.field-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 100;
+    font-size: 10px;
+    overflow-y: auto;
+    max-height: 100px;
+    /* max-width: 400px; */
+  }
+.field-container .field-label {
+    font-family: 'futura';
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-right: 10px;
+  }
+
+  .field-container{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .card-info{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .swatches-popup  .swatches-container{
+    justify-content: flex-start;
+
+  }
+  .swatches-popup .swatches-container{
+    width: 50%;
+    height: 100% !important;
+    position: relative;
+    /* background-color: blue; */
+  }
+
+  .swatches-popup{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    height: 100%;
+  }
+
+
+  .swatches-popup{
+    width: 70%;
+    min-height: 50vh;
+    max-height: 80vh;
+    height: fit-content;
+    position: relative;
+    padding: 30px;
+    top: -50px;
+  
+    background-color: #EBE8E4;
+    border: .5px solid black;
+    pointer-events: auto;
+  }
+
+  .card-colors {
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    position: relative;
+    bottom: 0px;
+    align-self: flex-start;
+    justify-self: flex-end;
+    position: absolute;
+    bottom: 20px;
+  }
+  .card-color {
+    width: 20px;
+    height: 20px;
+  }

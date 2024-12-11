@@ -11,6 +11,7 @@ body{
     -moz-user-select: none; /* For Firefox */
   }
 #side-panel{
+    transition: background-color 0.3s ease, color 0.3s ease;
     /* width: 30vw; */
     position: fixed;
     left:0px;
@@ -221,17 +222,17 @@ svg{
     background-color:#ffffff13;
   
     filter: brightness(150%);
-    opacity:.3;
+    opacity:.5;
 
 }
 
-.texture2{
+/* .texture2{
     background-image: url('./textture.jpg');
     background-size: cover;
     opacity: .3;
     mix-blend-mode: screen;
 
-}
+} */
 /* .grain{
     
     position: absolute;

@@ -35,8 +35,8 @@ const height = window.innerHeight
 const side_bar_width = Math.max(300, width*.3)
 
 const padding = {
-    top: 10,
-    bottom: 10,
+    top: 0,
+    bottom: 0,
     left: side_bar_width,
     right: 0,
 };
@@ -683,11 +683,21 @@ function saveSwatch(id, xpos, ypos){
     r:Math.random() * (50 - 30) + 30
   })
   
-  color_container.append('div')
+  const saved_color_rect = color_container.append('div')
     .attr('class', 'saved-color')
     .style('width', `${node_radius*2}px`)
     .style('height', `${node_radius*2}px`)
     .style('background-color', data_entry.vibrant_color)
+    
+  saved_color_rect.on('click', ()=>{
+      showSwatch(popup_container, data_entry)
+    })
+    .on('mouseover', ()=>{
+      saved_color_rect.style('border', "1px solid black")
+    })
+    .on('mouseleave', ()=>{
+      saved_color_rect.style('border', ".1px solid black")
+    })
 
   const swatch_width = 50
   displayImageSwatch(swatch_container,  dataObject[id],swatch_width , swatch_x_curr, swatch_y_curr)
@@ -704,11 +714,25 @@ let expand_Colors = false
 popupColorsBtn.on('click', ()=>{
   if(expand_Colors ==false){
     expand_Colors=true
+    d3.select("#side-panel").style('filter','grayscale(100%)')
+        .style('background-color', '#000000')
+        .style('box-shadow', 'none')
+        .style('border-right', 'none')
+    d3.select("#side-panel").selectAll("*").style('color', 'white')
+    d3.select("svg").style('filter','grayscale(100%)')
+    d3.select("body").style('background-color', '#000000')
+    d3.selectAll(".button").style('background-color', 'white').style('color', 'black')
+    html_plot_container.style('filter','none')
     popupColorsBtn.text("hide gradients")
     svg.style('pointer-events', 'none')
     showColorCollection(html_plot_container, saved_colors)
   }else{
     expand_Colors=false
+    d3.select("#side-panel").selectAll("*").style('color', 'black')
+    d3.select("svg").style('filter','none')
+    d3.selectAll(".button").style('background-color', 'black').style('color', 'white')
+    d3.select("body").style('background-color', '#EBE8E4')
+    d3.select("#side-panel").style('filter','none').style('background-color', '#EBE8E4').style('box-shadow', '0px 4px 30.2px 0px rgba(216, 209, 199, 0.49)').style('border-right', 'none')
     popupColorsBtn.text("show gradients")
     svg.style('pointer-events', 'auto')
     html_plot_container.selectAll("*").remove()

@@ -27,8 +27,8 @@ let noiseMag = 2
 function draw() {
     clear()
     drawCirclePack(circles)
-    stroke('black')
-    applyMonochromaticGrain(2)
+    // stroke('black')
+    // applyMonochromaticGrain(2)
    
   }
 
