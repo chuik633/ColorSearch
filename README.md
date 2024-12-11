@@ -1,8 +1,8 @@
 # ColorSearch
 ## **InteractionDesign**
-<img width="400" alt="actionshot" src="https://github.com/user-attachments/assets/fb2d58c2-7109-4f46-a4fe-e1bccace2165" />
-<img width="400" alt="card-popup" src="https://github.com/user-attachments/assets/a223eca9-62aa-4a76-8af4-5e08c740e835" />
-<img width="400" alt="colorclusters" src="https://github.com/user-attachments/assets/3f80fda8-7b7d-497d-95a2-c8958b6208e4" />
+<img width="300" alt="actionshot" src="https://github.com/user-attachments/assets/fb2d58c2-7109-4f46-a4fe-e1bccace2165" />
+<img width="300" alt="card-popup" src="https://github.com/user-attachments/assets/a223eca9-62aa-4a76-8af4-5e08c740e835" />
+<img width="300" alt="colorclusters" src="https://github.com/user-attachments/assets/3f80fda8-7b7d-497d-95a2-c8958b6208e4" />
 
 **About:** For this project, I was interesting in extending my "Hats of the Smithsonian" project by focusing on creating a color driven search. I extended the data to include all fashion related objects from the Smithsonian Open Access Collection as I was also curious about different colors in fabrics, jewelry, shirts, pants, etc. I had a lot of fun experimenting with extracting color swatches and learnning d3.force. I also added an experimental "show gradients" button to create some coded art based on the selected colors!
 
@@ -10,6 +10,7 @@
 ![move-and-add](https://github.com/user-attachments/assets/4bd5651c-c6ce-420f-844a-91c9aea88a0d)
 ![zoom](https://github.com/user-attachments/assets/9e79e302-25d2-4454-b4cd-95725119e175)
 ![expand-cards](https://github.com/user-attachments/assets/0119635d-fd57-477d-9864-86d70666318b)
+![show-gradients](https://github.com/user-attachments/assets/9c6bbfa2-c34a-4ae0-8f96-a980b9b43505)
 
 
 --
