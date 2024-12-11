@@ -558,7 +558,6 @@ function adjustZoomToFit() {
     adjustedZoom = map.getBoundsZoom(bounds, {paddingTopLeft: [containerWidth, 0]});
   }
   console.log("adjusted zoome", adjustedZoom)
-
   map.setView(bounds.getCenter(), adjustedZoom);
 }
 
@@ -741,10 +740,10 @@ popupColorsBtn.on('click', ()=>{
   
 })
 
-const popupSwatchesBtn  = swatch_container.append('div').attr('class', 'button').text('expand')
-popupSwatchesBtn.on('click', (event)=>{
-  showSwatchCollection(popup_container, saved_swatches)
-})
+// const popupSwatchesBtn  = swatch_container.append('div').attr('class', 'button').text('expand')
+// popupSwatchesBtn.on('click', (event)=>{
+//   showSwatchCollection(popup_container, saved_swatches)
+// })
 
 
 //Chat gpt helper functions to convert between hex and rgb
