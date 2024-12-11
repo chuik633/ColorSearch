@@ -1,5 +1,5 @@
 # ColorSearch
-InteractionDesign
+## **InteractionDesign**
 <img width="400" alt="actionshot" src="https://github.com/user-attachments/assets/fb2d58c2-7109-4f46-a4fe-e1bccace2165" />
 <img width="400" alt="card-popup" src="https://github.com/user-attachments/assets/a223eca9-62aa-4a76-8af4-5e08c740e835" />
 <img width="400" alt="colorclusters" src="https://github.com/user-attachments/assets/3f80fda8-7b7d-497d-95a2-c8958b6208e4" />
